@@ -42,6 +42,9 @@ public class Audio {
 		}
 	}
 	public static void playLose() {
+		if (true) {
+			return;
+		}
 		clip.stop();
 		if (alarm!=null) {
 			alarm.stop();
@@ -62,6 +65,9 @@ public class Audio {
 		}
 	}
 	public static void playWin() {
+		if (true) {
+			return;
+		}
 		clip.stop();
 		if (alarm!=null) {
 			alarm.stop();
@@ -162,6 +168,9 @@ public class Audio {
 		}
 	}
 	public static void music() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
+		if (true) {
+			return;
+		}
 		if (Main.gameStage<2) {
 			if (nowPlaying!="menu") {
 				nowPlaying = "menu";

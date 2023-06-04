@@ -6,6 +6,7 @@ import java.awt.MouseInfo;
 import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -63,6 +64,7 @@ public class Main extends Canvas{
 	static ArrayList<Wildfire> fires = new ArrayList<Wildfire>();
 	static ArrayList<Splash> splashes = new ArrayList<Splash>();
 	static ArrayList<Message> messages = new ArrayList<Message>();
+	static BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_3BYTE_BGR);
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		xPos = 0;
 		yPos = 0;
@@ -296,7 +298,7 @@ public class Main extends Canvas{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			canvas.repaint();
+			drawDisplay();
 			canvas.paint(canvas.getGraphics());
 		}
 		gameStage = 0;
@@ -310,7 +312,7 @@ public class Main extends Canvas{
 			if (spacePressed) {
 				calibration-=8;
 			}
-			canvas.repaint();
+			drawDisplay();
 			canvas.paint(canvas.getGraphics());
 			if (calibration<-360) {
 				calibrateX = MouseInfo.getPointerInfo().getLocation().getX()-400;
@@ -320,7 +322,7 @@ public class Main extends Canvas{
 		}
 		while (gameStage==1) {
 			Audio.music();
-			canvas.repaint();
+			drawDisplay();
 			canvas.paint(canvas.getGraphics());
 			try {
 				Thread.sleep(25);
@@ -379,7 +381,7 @@ public class Main extends Canvas{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			canvas.repaint();
+			drawDisplay();
 			canvas.paint(canvas.getGraphics());
 			if (MouseInfo.getPointerInfo().getLocation().getX()-calibrateX>770&&MouseInfo.getPointerInfo().getLocation().getY()-calibrateY>570) {
 				continue;
@@ -498,6 +500,12 @@ public class Main extends Canvas{
 		}
 	}
 	public void paint(Graphics g) {
+		g.drawImage(image, 0, 0, null);
+	}
+	public static void drawDisplay() {
+		Graphics g = image.getGraphics();
+		g.setColor(Color.black);
+		g.fillRect(0, 0, 800, 600);
 		if (defaultFont==null) {
 			defaultFont = g.getFont().getName();
 			defaultSize = g.getFont().getSize();
